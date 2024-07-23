@@ -40,21 +40,6 @@ We employ a five-stage pipelined RISC-V CPU equipped with an L1 cache to demonst
 ![image](https://github.com/user-attachments/assets/72cbbdb7-bb9e-40c8-88f5-b368f6930650)
 
 
-## About RIOS Lab
-
-![image](https://github.com/riosmpw/OpenRPDK28/assets/109063674/6aae13c6-50a5-40c3-9a4e-ed4c79d41c20)
-
-
-**Ecosystem Wants to be Free**
-
-By David A. Patterson · Director of RIOS Lab
-
-**RISC-V International Open Source Laboratory** (RIOS Lab) is a Shenzhen-based research facility focused on computer system architecture, supported by the Tsinghua-Berkeley Shenzhen Research Institute. As an Open Source and Nobel Prize Laboratory, RIOS Lab promotes open-source innovation and collaboration. Our philosophy is that the computer architecture ecosystem should be free for all to access and build upon.
-
-In November 2019, RIOS Lab was officially unveiled. Under the leadership of 2017 A.M. Turing Award winner Prof. David A. Patterson and operational support from TBSI,  RIOS Lab will conduct cutting-edge research in RISC-V hardware and software technology. Patterson first proposed the Reduced Instruction Set Computer (RISC), an open and free instruction set architecture enabling a new era of processor innovation through open standard collaboration. Released in 2010, the latest Fifth Generation RISC has gained worldwide attention.
-
-The name for the lab RIOS is also inspired by the Spanish word for “rivers.” It symbolizes the flow of information from many sources, coming together to create a whole that is greater than the sum of its parts.
-
 ## 2.   Architecture Design of 3D RISC-V Processor with V-Cache
 ### 2.1 Chiplet Consideration
 There are some typical structures for 3D processors. As depicted in the following figure:
@@ -79,6 +64,38 @@ The overall stacked architecture is illustrated as:
 ![image](https://github.com/user-attachments/assets/37b821aa-cee4-4ab1-9a09-eafb05a90f58)
 
 In our study, two dies are stacked in a F2F configuration, which means that their corresponding connection signal points converge onto the same bonding pads on the bonding layer. Additionally, the TSVs are via-last fabricated, where they reach the topmost layer of the top die and penetrate through all the metal layers of the sub die. Finally, the entire 3D chip is mounted on the substrate using flip-chip packaging with solder bumps.
+
+
+
+</br>
+
+#### Team Members
+
+|Name|Affiliation|
+|:--:|:----------:|
+| Yifei Zhu (zhuyf20@mails.tsinghua.edu.cn)| PhD Student, RIOS Lab, Tsinghua-Berkeley Shenzhen Institute, Tsinghua University|
+| Weiwei Chen (weiwei.c@rioslab.org)| Scientist, RIOS Lab, Tsinghua-Berkeley Shenzhen Institute, Tsinghua University|
+| Lei Ren (ren@rioslab.org)| Scientist, RIOS Lab, Tsinghua-Berkeley Shenzhen Institute, Tsinghua University|
+| Zhangxi Tan (xtan@rioslab.org)| Doctor, RIOS Lab, Tsinghua-Berkeley Shenzhen Institute, Tsinghua University|
+<!-- | Xieyuan Wu (wuxy23@mails.tsinghua.edu.cn)| RIOS Lab, Tsinghua-Berkeley Shenzhen Institute, Tsinghua University|
+| Yucheng Wang (wangyc23@mails.tsinghua.edu.cn)| RIOS Lab, Tsinghua-Berkeley Shenzhen Institute, Tsinghua University| -->
+
+
+
+## About RIOS Lab
+
+![image](https://github.com/riosmpw/OpenRPDK28/assets/109063674/6aae13c6-50a5-40c3-9a4e-ed4c79d41c20)
+
+
+**Ecosystem Wants to be Free**
+
+By David A. Patterson · Director of RIOS Lab
+
+**RISC-V International Open Source Laboratory** (RIOS Lab) is a Shenzhen-based research facility focused on computer system architecture, supported by the Tsinghua-Berkeley Shenzhen Research Institute. As an Open Source and Nobel Prize Laboratory, RIOS Lab promotes open-source innovation and collaboration. Our philosophy is that the computer architecture ecosystem should be free for all to access and build upon.
+
+In November 2019, RIOS Lab was officially unveiled. Under the leadership of 2017 A.M. Turing Award winner Prof. David A. Patterson and operational support from TBSI,  RIOS Lab will conduct cutting-edge research in RISC-V hardware and software technology. Patterson first proposed the Reduced Instruction Set Computer (RISC), an open and free instruction set architecture enabling a new era of processor innovation through open standard collaboration. Released in 2010, the latest Fifth Generation RISC has gained worldwide attention.
+
+The name for the lab RIOS is also inspired by the Spanish word for “rivers.” It symbolizes the flow of information from many sources, coming together to create a whole that is greater than the sum of its parts.
 
 
 
