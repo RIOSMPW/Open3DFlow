@@ -5,6 +5,8 @@
 
 
 Amid the escalating need for high-performance, low-power, and densely integrated electronic systems, 3D-ICs emerge as a promising "more than Moore'' integration solution. Nevertheless, the scarcity of specialized EDA tools and standardized design flows tailored for 3D chiplets hinders silicon innovation. To address this gap, we propose a 3D RISC-V processor, mimicking AMD's 3D V-cache architecture. To realize this architecture, we develop 'Open3DFlow', an open-source 3D IC design platform that leverages existing openEDA tools while incorporating tailored abstractions and customizations optimized for 3D chiplet designs. Besides OpenROAD, we also integrate other open tools to enable Through Silicon Via (TSV) modeling, thermal analysis, and signal integrity (SI) assessments. Our CPU consists of two tiers: a cache die and a logic die, stacked face-to-face (F2F) using different processes. The interconnects converge at the central bonding layer, where the bonding pads are located. Our ambition is to establish a fully open-source realization of cutting-edge technologies, not only to facilitate the resolution of future challenges within this platform but also to pave the way for the exploration of novel packaging paradigms.
+![image](https://github.com/user-attachments/assets/b0cd0a0a-f882-4eba-8048-78a5c5c3380f)
+
 
 ## 1.   Introduction and Spec
 In the realm of microelectronics, the pursuit of superior performance, energy efficiency, optimized space utilization, and economical solutions has spurred the development of novel integration techniques. Given the need for semiconductor memory chips with higher density to support recently released CPU components, the technique for advanced packages has emerged as a promising solution.
