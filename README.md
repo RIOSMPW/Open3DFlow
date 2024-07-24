@@ -39,9 +39,42 @@ We employ a five-stage pipelined RISC-V CPU equipped with an L1 cache to demonst
 
 ![image](https://github.com/user-attachments/assets/72cbbdb7-bb9e-40c8-88f5-b368f6930650)
 
+## 2. EDA Toolchain in Open3DFlow
+### 2.1 Open3DFlow Infrastructure
+’Open3DFlow‘ incorporates a range of open EDA tools tailored for distinct stages of the design process. As shown in the following figure：
 
-## 2.   Architecture Design of 3D RISC-V Processor with V-Cache
-### 2.1 Chiplet Consideration
+![image](https://github.com/user-attachments/assets/fbb89374-6db0-4a29-a7ea-0e63d83505a6)
+
+
+Within green boxes are existing open-source tools/algorithms such as Yosys and RePlace, which have been integrated into OpenRoad. The purple boxes represent the new open-source EDA tools we add to our design process. While the red boxes highlight our self-developed modules: 
+1. Pad placer generates a bonding layer, placing bonding pads and ensuring alignment between two tiles; 
+2. 3D Times extracts the delay introduced by TSVs, incorporating it into the subsequent CTS process. 
+3. Route helper manages routing connections between metal layers and bonding pads, while also extracting parasitic parameters associated with the chiplets.
+
+### 2.2 3D Back-end Design Flow
+To achieve this design, we developed a platform called 'Open3DFlow'. 'Open3DFlow' integrates a range of open-source tools and provides apt abstractions, augmented with specialized modules designed to simulate the 3D structure of hybrid bonding. Notably, the 2D backend of the chip leverages certain components from the existing workflow in OpenRoad.
+
+The overall workflow of 'Open3DFlow' is depicted in this figure:
+
+![image](https://github.com/user-attachments/assets/0b069b3b-c3c1-438c-a267-60fdbf3336f0)
+
+In the initial phase, we synthesize the RTL codes of the processor and V-cache to generate netlists respectively. They are synthesized using distinct PDKs.
+
+Subsequently, we proceed to do floorplanning of both dies. The footprints of the two dies must be aligned with each other.
+
+The next step involves the placement of standard cells and bonding pads. A key aspect of hybrid bonding is its transition from solder-based bump technology to direct copper-to-copper connections. So we introduce a dedicated 'bonding layer' for bonding pads. However, modifying the technology file of the full metal stack can introduce complexities in Design Rule Check (DRC) rules and RC extraction schedules. To maintain a reasonable F2F stacking structure, actually, the top layer of the V-cache die serves as the bonding layer. Consequently, this metal layer is not allowed for routing. Simultaneously, this bonding layer is integrated into the metal stack of the logic die. We have extracted the RLC characteristics and related dimensions of two die's all metal layers to construct the 3D chips' full backend-of-the-line (BEOL). Compared to other monolithic-3D methods, this approach simplifies modifications to the logic die's tlef, as we do not require actual routing on the bonding layer, just sacrificing the routing resources of the cache die.
+
+Besides, the placement and legalization of stand cells are also involved at this stage, ensuring that the bonding pads of both dies align automatically.
+
+Then, we model the delays and impedances introduced by 3D items such as bumps, TSVs, and bonding pads. The TSVs connect the upper bonding pads to the bumps, which interface with the RDL or package substrate. Delays can be abstracted and concentrated at their IOs. Detailed modeling will be discussed in the next section.
+
+Next, the logic die and V-cache die are routed separately to obtain the final GDSII files. Although routing is performed individually for each die, the alignment of bonding pads, the parasitic parameters and time delays for 3D structure, obtained in the previous step, validate this flow for the final F2F-stacked 3D chip architecture. Even though it is relatively straightforward to change the two back-end processes to run in parallel, the main consideration is that the positions of the bonding pads should be routable for both dies. However, at present, we manually select their positions.
+
+In the last two steps, we perform thermal simulation and SI analysis based on chip dimensions, power consumption, and other relevant parameters. Thermal simulations allow us to accurately assess the heat distribution within the chip, enabling us to optimize the cooling system in the future. The SI analysis helps identify potential electromagnetic interference issues.
+
+
+## 3.   Architecture Design of 3D RISC-V Processor with V-Cache
+### 3.1 Chiplet Consideration
 There are some typical structures for 3D processors. As depicted in the following figure:
 
 ![image](https://github.com/user-attachments/assets/dbf4aeec-29a6-4029-b6bb-dfdfa0205aa5)
@@ -50,7 +83,7 @@ There are some typical structures for 3D processors. As depicted in the followin
 
 However, modern 3D processor architectures often combine multiple stacking approaches. The prevailing trend in 3D architecture evolution is towards increased density integration, reduced micro-bumps and TSV pitches, as well as shorter chiplet distances. For instance, AMD's 3D-Vcache does not follow the traditional approach of placing caches alongside the processor; instead, it stacks additional cache layers on top of the CPU. This architecture enables AMD to compress more cache without fabricating larger CPUs, resulting in improved speed and power efficiency in gaming applications. To achieve broader bandwidth and faster transmission speeds, the hybrid bonding technology even eliminates bumps. In our design, we select the "CPU + Caches" structure for experimentation. We aim to develop a fully open-source 3D-Vcache structure utilizing openEDA tools and openPDKs. Our aspiration is also to establish a platform that can be flexibly extended to other stacking modes in the future.
 
-### 2.2 V-Cache Structure
+### 3.2 V-Cache Structure
 The L1 cache is composed by concatenating 4 GF180 256*8-SRAM  macros, utilizing a 7-bit address for both reading and writing operations. As shown in this figure:
 
 
@@ -58,7 +91,7 @@ The L1 cache is composed by concatenating 4 GF180 256*8-SRAM  macros, utilizing 
 
 All signals related to this cache die, excluding the clock signal, establish direct communication with the logic die via bonding pads and TSVs. The floorplan for the macros is manually crafted. The two ties possess their own independent power supply networks, but converge on the logic die. Detailed insights into the back-end design are outlined in the subsequent sections.
 
-### 2.3  RISC-V CPU with 3D Stacking SRAM
+### 3.3  RISC-V CPU with 3D Stacking SRAM
 The overall stacked architecture is illustrated as:
 
 ![image](https://github.com/user-attachments/assets/37b821aa-cee4-4ab1-9a09-eafb05a90f58)
