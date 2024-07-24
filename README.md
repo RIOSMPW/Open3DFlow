@@ -100,9 +100,9 @@ The overall stacked architecture is illustrated as:
 
 In our study, two dies are stacked in a F2F configuration, which means that their corresponding connection signal points converge onto the same bonding pads on the bonding layer. Additionally, the TSVs are via-last fabricated, where they reach the topmost layer of the top die and penetrate through all the metal layers of the sub die. Finally, the entire 3D chip is mounted on the substrate using flip-chip packaging with solder bumps.
 
-
-
 </br>
+
+
 
 #### Team Members
 
@@ -116,7 +116,11 @@ In our study, two dies are stacked in a F2F configuration, which means that thei
 | Yucheng Wang (wangyc23@mails.tsinghua.edu.cn)| RIOS Lab, Tsinghua-Berkeley Shenzhen Institute, Tsinghua University| -->
 
 
+</br>
 
+</br>
+
+</br>
 
 
 ## About RIOS Lab
